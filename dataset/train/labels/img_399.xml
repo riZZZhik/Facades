@@ -1,0 +1,38 @@
+<annotation>
+	<folder>new pics</folder>
+	<filename>img_399.jpg</filename>
+	<path>C:\Users\podockonnik\Desktop\new pics\img_399.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>signboard</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>246</xmin>
+			<ymin>287</ymin>
+			<xmax>544</xmax>
+			<ymax>342</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>signboard</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>778</xmin>
+			<ymin>300</ymin>
+			<xmax>1064</xmax>
+			<ymax>345</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,38 @@
+<annotation>
+	<folder>to jpg</folder>
+	<filename>img_354.jpg</filename>
+	<path>C:\Users\podockonnik\Desktop\to jpg\img_354.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>signboard</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>96</xmin>
+			<ymin>20</ymin>
+			<xmax>1080</xmax>
+			<ymax>159</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>window</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>307</xmin>
+			<ymin>270</ymin>
+			<xmax>944</xmax>
+			<ymax>720</ymax>
+		</bndbox>
+	</object>
+</annotation>

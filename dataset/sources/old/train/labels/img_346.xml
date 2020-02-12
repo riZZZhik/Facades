@@ -1,0 +1,38 @@
+<annotation>
+	<folder>new pics</folder>
+	<filename>img_346.jpg</filename>
+	<path>C:\Users\podockonnik\Desktop\new pics\img_346.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>cantilever</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>175</xmin>
+			<ymin>61</ymin>
+			<xmax>293</xmax>
+			<ymax>255</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>arch</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>332</xmin>
+			<ymin>114</ymin>
+			<xmax>880</xmax>
+			<ymax>688</ymax>
+		</bndbox>
+	</object>
+</annotation>

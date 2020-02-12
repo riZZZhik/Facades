@@ -1,6 +1,12 @@
 import os
 
 import keras
+import numpy as np
+import tensorflow as tf
+from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from keras.models import Model
+from keras.optimizers import Adam
+from keras.preprocessing.image import ImageDataGenerator
 
 from ml.utils import residual_model
 
@@ -60,7 +66,7 @@ class Facades:  # TODO: Predict  # TODO: Comments
         # Initialize data generators
         seed = 909  # to transform image and masks with same augmentation parameter.
         image_generator = data_datagen.flow_from_directory(dataset_dir + "train/data/", class_mode=None, seed=seed,
-                                                            batch_size=batch_size, target_size=self.dim)
+                                                           batch_size=batch_size, target_size=self.dim)
         masks_generator = masks_datagen.flow_from_directory(dataset_dir + "train/masks/", class_mode=None, seed=seed,
                                                             color_mode="grayscale", batch_size=batch_size,
                                                             target_size=self.dim)
@@ -88,7 +94,35 @@ class Facades:  # TODO: Predict  # TODO: Comments
         self.model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"])
         # keras.utils.plot_model(self.model, 'model.png', show_shapes=True)
 
+    def train(self, epochs=1, use_gpu=True):
+        """Train model
+        :param epochs: Number of epochs to train model
+        :param use_gpu: Whether to use GPU or CPU
+        """
+        # Setup model training device
+        if use_gpu:
+            device = None  # TODO: Setup GPU training
+        else:
+            os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # see issue #152
+            os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+            device = '/cpu:0'
+
+        # Initialize callbacks
+        callbacks = [
+            EarlyStopping(patience=10, verbose=1),
+            ModelCheckpoint('checkpoints/weights.{epoch:02d}-{val_loss:.2f}.hdf5', verbose=1,
+                            save_best_only=True, save_weights_only=True),
+            ReduceLROnPlateau(factor=0.1, patience=3, min_lr=0.00001, verbose=1)
+        ]
+
+        # Run model training
+        with tf.device(device):
+            self.model.fit_generator(self.train_generator, steps_per_epoch=np.floor(160 / self.batch_size),
+                                     epochs=epochs, callbacks=callbacks, verbose=2)
+
+
 if __name__ == "__main__":
     facades = Facades((512, 1024))
 
     facades.training_init("dataset/", batch_size=8)
+    facades.train(100000, False)

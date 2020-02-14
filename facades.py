@@ -12,11 +12,13 @@ from ml.utils import residual_model
 
 keras.backend.set_image_data_format('channels_last')
 
-DATASET_DIR = "dataset"
-
 
 class Facades:  # TODO: Predict  # TODO: Comments
     def __init__(self, dim=(720, 1080), n_channels=3):
+        """Initialize main parameters of Facades class
+        :param dim: Images resolution in format (height, width)
+        :param n_channels: Number of channels in image (1 or 3)
+        """
         self.dim = dim
         self.n_channels = n_channels
         self.shape = dim + (n_channels,)
@@ -29,9 +31,8 @@ class Facades:  # TODO: Predict  # TODO: Comments
         self.training_init_check = False
 
     # noinspection PyAttributeOutsideInit
-    def training_init(self, dataset_dir=DATASET_DIR, batch_size=8, dropout_rate=0.5):  # TODO: Desribe params
+    def training_init(self, dataset_dir="dataset", batch_size=8):
         """Initialize the parameters and generators
-
         :param dataset_dir: File path to dataset directory. With folders system:
             > train
                 > data
@@ -39,6 +40,7 @@ class Facades:  # TODO: Predict  # TODO: Comments
             > valid
                 > data
                 > masks
+        :param batch_size: Number of images in one training iteration
         """
         self.batch_size = batch_size
 
@@ -46,7 +48,6 @@ class Facades:  # TODO: Predict  # TODO: Comments
         data_datagen = ImageDataGenerator(
             rescale=1. / 255,
 
-            brightness_range=[0.5, 1.4],
             height_shift_range=0.2,
             horizontal_flip=True,
             rotation_range=45,
@@ -55,7 +56,6 @@ class Facades:  # TODO: Predict  # TODO: Comments
         )
 
         masks_datagen = ImageDataGenerator(
-            brightness_range=[0.5, 1.4],
             height_shift_range=0.2,
             horizontal_flip=True,
             rotation_range=45,
@@ -88,7 +88,7 @@ class Facades:  # TODO: Predict  # TODO: Comments
                                                           include_top=False,
                                                           input_shape=self.shape)
 
-        output_layer = residual_model(base_model, dropout_rate)
+        output_layer = residual_model(base_model, dropout_rate=0.5)
 
         self.model = Model(base_model.input, output_layer)
         self.model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"])
@@ -122,7 +122,4 @@ class Facades:  # TODO: Predict  # TODO: Comments
 
 
 if __name__ == "__main__":
-    facades = Facades((512, 1024))
-
-    facades.training_init("dataset/", batch_size=8)
-    facades.train(100000, False)
+    facades = Facades((1024, 512))

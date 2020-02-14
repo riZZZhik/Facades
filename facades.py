@@ -42,6 +42,7 @@ class Facades:  # TODO: Predict  # TODO: Comments
                 > masks
         :param batch_size: Number of images in one training iteration
         """
+        self.training_init_check = True
         self.batch_size = batch_size
 
         # Initialize ImageDataGenerator classes
@@ -99,6 +100,11 @@ class Facades:  # TODO: Predict  # TODO: Comments
         :param epochs: Number of epochs to train model
         :param use_gpu: Whether to use GPU or CPU
         """
+        # Check training init before train
+        if not self.training_init_check:
+            print('Please Initialize training variables before training (use "Facades.training_init" function)')
+            return False
+
         # Setup model training device
         if use_gpu:
             device = None  # TODO: Setup GPU training

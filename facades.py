@@ -1,4 +1,10 @@
+import logging
 import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
+logging.getLogger("tensorflow").setLevel(logging.DEBUG)
+logging.basicConfig(filename='logs.log', filemode='w', level=logging.DEBUG,
+                    format='%(asctime)s: %(levelname)s - %(message)s')
 
 import keras
 import numpy as np
@@ -8,7 +14,7 @@ from keras.models import Model
 from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
 
-from ml.utils import residual_model
+from ml import residual_model
 
 keras.backend.set_image_data_format('channels_last')
 

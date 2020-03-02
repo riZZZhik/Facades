@@ -1,0 +1,7 @@
+jupyterlab
+
+numpy
+opencv-python
+
+keras
+

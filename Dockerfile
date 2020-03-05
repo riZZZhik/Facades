@@ -1,9 +1,6 @@
 # to build use: docker image build -t oneonwar:jptr .
 # to run use: nvidia-docker run --gpus all -it --rm -v ~/:/USER_FILES/ -p 4958:4958 oneonwar:jptr
 
-# Who did it?
-LABEL maintainer="t.me/riZZZhik"
-
 # User arguments (Note that TensorFlow does not support CUDA 10.1)
 ARG UBUNTU_VERSION=18.04
 ARG CUDA_VERSION=10.0
@@ -11,8 +8,8 @@ ARG CUDA_VERSION=10.0
 # Load base image
 FROM nvidia/cuda:${CUDA_VERSION:-10.0}-cudnn7-runtime-ubuntu${UBUNTU_VERSION:-18.04}
 
-# FIX: I don't know fucking why is it needed, maybe nvidia was mistaken, anyway, DO NOT DELETE THIS SHIT
-#ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64
+# Who did it?
+LABEL maintainer="t.me/riZZZhik"
 
 # User arguments
 # py3 only

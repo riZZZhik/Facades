@@ -1,7 +1,11 @@
 jupyterlab
 
+tqdm
+
+matplotlib
 numpy
-opencv-python
+Pillow
 
+tensorflow
+tensorflow-gpu
 keras
-

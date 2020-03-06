@@ -6,16 +6,6 @@ logging.getLogger("tensorflow").setLevel(logging.DEBUG)
 logging.basicConfig(filename='logs.log', filemode='w', level=logging.DEBUG,
                     format='%(asctime)s: %(levelname)s - %(message)s')
 
-# Setup model training device
-USE_CPU = False
-GPU_DEVICES = []
-
-if USE_CPU:
-    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # see issue #152
-    os.environ["CUDA_VISIBLE_DEVICES"] = ""
-elif GPU_DEVICES:
-    os.environ["CUDA_VISIBLE_DEVICES"] = GPU_DEVICES
-
 import keras
 import numpy as np
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
@@ -127,8 +117,6 @@ class Facades:  # TODO: Predict  # TODO: Comments
         ]
 
         # Run on GPU if needed
-        if GPU_DEVICES:
-            self.model = multi_gpu_model(self.model, gpus=len(GPU_DEVICES))
 
         # Run model training
         self.model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"])

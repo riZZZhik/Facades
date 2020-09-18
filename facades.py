@@ -20,9 +20,10 @@ from utils import load_images_from_folder
 keras.backend.set_image_data_format('channels_last')
 
 
-class Facades:  # TODO: Predict  # TODO: Comments
+class Facades:  # TODO: Predict
+    """Class for segmentation buildings' facades using Deep Learning"""
     def __init__(self, dim=(720, 1080), n_channels=3, use_datagenerator=True):
-        """Initialize main parameters of Facades class
+        """Initialize main parameters of Facades class s
         :param dim: Images resolution in format (height, width)
         :param n_channels: Number of channels in image (1 or 3)
         """
@@ -78,11 +79,12 @@ class Facades:  # TODO: Predict  # TODO: Comments
 
             # Initialize data generators
             seed = 909  # to transform image and masks with same augmentation parameter.
-            image_generator = data_datagen.flow_from_directory(dataset_dir + "train/data/", class_mode=None, seed=seed,
-                                                               batch_size=batch_size, target_size=self.dim)
-            masks_generator = masks_datagen.flow_from_directory(dataset_dir + "train/masks/", class_mode=None, seed=seed,
-                                                                batch_size=batch_size, target_size=self.dim,
-                                                                color_mode="grayscale")
+            image_generator = data_datagen.flow_from_directory(dataset_dir + "train/data/", class_mode=None,
+                                                               seed=seed, batch_size=batch_size,
+                                                               target_size=self.dim)
+            masks_generator = masks_datagen.flow_from_directory(dataset_dir + "train/masks/", class_mode=None,
+                                                                seed=seed, batch_size=batch_size,
+                                                                target_size=self.dim, color_mode="grayscale")
 
             self.train_generator = zip(image_generator, masks_generator)
 
@@ -117,11 +119,10 @@ class Facades:  # TODO: Predict  # TODO: Comments
         self.model = Model(base_model.input, output_layer)
         # keras.utils.plot_model(self.model, 'model.png', show_shapes=True)
 
-    def train(self, epochs=1, number_of_GPUs=0, remote_monitor_ip="localhost:4959"):
+    def train(self, epochs=1, number_of_GPUs=0):
         """Train model
         :param epochs: Number of epochs to train model
         :param number_of_GPUs: Number of devices to train on multiple GPUs
-        :param remote_monitor_ip: IP where to run Keras RemoteMonitor (default: localhost:4959)  # TODO
         """
         # Check training init before train
         if not self.training_init_check:
@@ -151,6 +152,11 @@ class Facades:  # TODO: Predict  # TODO: Comments
 
 
 if __name__ == "__main__":
+    # Initialize main class
     facades = Facades((512, 512))
+
+    # Initialize training dataset
     facades.training_init("dataset/", batch_size=5)
+
+    # Run model training
     facades.train(10)

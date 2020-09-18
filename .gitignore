@@ -256,6 +256,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# User ignores
 dataset/sources/~$Labels.docx
-ml/generator.py
-utils.py
+jupyter_config_itmo.py
